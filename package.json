@@ -1,0 +1,19 @@
+{
+  "name": "twilio-log-alert",
+  "version": "1.0.0",
+  "description": "A monitoring and alert tool for Node.js API built with Winston and Twilio WhatsApp API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "twilio",
+    "api",
+    "logs",
+    "alert",
+    "incident",
+    "monitoring"
+  ],
+  "author": "Desmond Obisi",
+  "license": "ISC"
+}
