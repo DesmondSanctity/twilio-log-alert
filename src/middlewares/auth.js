@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { jwtSecret } from '../config';
+import { jwtSecret } from '../config/index.js';
 
 /** auth middleware */
 export default async function Auth(req, res, next) {

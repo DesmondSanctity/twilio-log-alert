@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { Users } from "../../models/index.js";
-import { jwtSecret, jwtExpiresIn } from "../../config/index.js";
+import { jwtSecret, jwtExpiresIn, baseUrl } from "../../config/index.js";
 import { AppError } from "../../utils/responseHandler.js";
 
 
@@ -55,7 +55,7 @@ export const loginUser = async (req, res) => {
         // Find the user by email
         const user = await Users.findOne({ where: { email: req.body.email } });
         if (!user) {
-            throw new AppError('failed', 'User with the email not found', 400);
+            throw new AppError('failed', 'User with this email not found', 400);
         }
         // Checking for valid  password
         const validPassword = await bcrypt.compare(req.body.password, user.password);
@@ -91,8 +91,13 @@ export const forgetPasswordUser = async (req, res) => {
             if (!user) {
                 throw new AppError('failed', 'Email does not exit', 400);
             }
+            const token = jwt.sign({
+                userId: user.userId
+            }, jwtSecret, { expiresIn: jwtExpiresIn });
+            
+            const resetPasswordLink = `${baseUrl}/resetPassword/${token}`;
 
-            await sendOTPEmail(req, res)
+            return resetPasswordLink
         }
 
     } catch (error) {

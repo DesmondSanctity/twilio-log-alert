@@ -3,7 +3,7 @@ import { AppResponse } from "../utils/responseHandler.js";
 
 export const getAll = async (req, res) => {
     try {
-        const users = getUsers(req, res)
+        const users = await getUsers(req, res)
 
         if (users)
             new AppResponse('success', 'Users fetched successfully', { users }, 200).send(res);
@@ -18,7 +18,7 @@ export const getAll = async (req, res) => {
 
 export const getOne = async (req, res) => {
     try {
-        const user = getUser(req, res)
+        const user = await getUser(req, res)
 
         if (user)
             new AppResponse('success', 'User fetched successfully', { user }, 200).send(res);
@@ -33,7 +33,7 @@ export const getOne = async (req, res) => {
 
 export const updateOne = async (req, res) => {
     try {
-        const user = updateUser(req, res)
+        const user = await updateUser(req, res)
 
         if (user)
             new AppResponse('success', 'User updated successfully', { user }, 200).send(res);
@@ -48,7 +48,7 @@ export const updateOne = async (req, res) => {
 
 export const deleteOne = async (req, res) => {
     try {
-        const user = deleteUser(req, res)
+        const user = await deleteUser(req, res)
 
         if (user)
             new AppResponse('success', 'User deleted successfully', { user }, 200).send(res);

@@ -5,12 +5,12 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Stamina API',
-      description: "API documentation for the backend infrastructure of Stamina",
+      title: 'Twilio Log Alert API',
+      description: "A monitoring and alert tool for Node.js API built with Winston and Twilio WhatsApp API",
       contact: {
-        name: "Stamina",
-        email: "desmond@mystamina.co",
-        url: "https://api.mystamina.co"
+        name: "Desmond",
+        email: "desmond.obisi.g20@gmail.com",
+        url: "https://github.com/DesmondSanctity/twilio-log-alert",
       },
       version: '1.0.0',
     },
@@ -18,11 +18,7 @@ const options = {
       {
         url: "http://localhost:5000/",
         description: "Local server"
-      },
-      {
-        url: "https://api.stamina.com/",
-        description: "Live server"
-      },
+      }
     ],
     components: {
       securitySchemes: {
@@ -38,7 +34,7 @@ const options = {
     }],
   },
   // looks for configuration in specified directories
-  apis: ['./routes/*.js'],
+  apis: ['./src/routes/*.js'],
 }
 
 const swaggerSpec = swaggerJSDoc(options)

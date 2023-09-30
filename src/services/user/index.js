@@ -62,7 +62,7 @@ export const getUser = async (req, res) => {
 export const updateUser = async (req, res) => {
     try {
 
-        if (req.user.userId) {
+        if (req.body.userId) {
             const user = await Users.update(req.body, {
                 where: {
                     userId: req.body.userId
