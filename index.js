@@ -4,7 +4,6 @@ import redis from "redis";
 import bodyParser from "body-parser";
 import { port, redisURL } from "./src/config/index.js";
 import { AppError } from "./src/utils/responseHandler.js";
-import { responseInterceptor } from "./src/utils/log/interceptor.js";
 import swaggerDocs from "./swagger.js";
 import "./src/models/index.js";
 import userRouter from "./src/routes/users.js";
@@ -51,9 +50,6 @@ client.connect();
 
 // Run the swagger docs before log interception
 swaggerDocs(app, port);
-
-// place an interceptor above all routes that you want to `intercept`
-app.use(responseInterceptor);
 
 /** HTTP GET Request */
 app.get("/", (req, res) => {
