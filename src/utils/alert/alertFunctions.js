@@ -15,7 +15,9 @@ const formatErrorAlert = async ({
   method,
 }) => {
   return `
-    *${alertType == "Critical" ? `⛔ Alert Type ` : `🚫 Alert Type: `}${alertType}*\n
+    *${
+      alertType == "Critical" ? `⛔ Alert Type ` : `🚫 Alert Type: `
+    }${alertType}*\n
     ⚠️ Error Description: ${errorDescription}\n
     🌐 Affected Endpoint: ${affectedEndpoint}\n
     🔗 HTTP Method: ${method}\n
@@ -25,40 +27,13 @@ const formatErrorAlert = async ({
     `;
 };
 
-export const calculateHealthRatings = async (stats) => {
-  const healthRatings = {};
-  for (const endpoint in stats) {
-    const { calls, successful, failed } = stats[endpoint];
-    const successRate = (successful / calls) * 100;
-    const health = successRate >= 90 ? "Healthy" : "Unhealthy";
-    healthRatings[endpoint] = { health, successRate };
-  }
-  return healthRatings;
-};
-
-export const createLogSummary = async (stats, ratings) => {
-  let summary = "Daily Log Summary:\n\n";
-  for (const endpoint in stats) {
-    const { calls, successful, failed } = stats[endpoint];
-    const { health, successRate } = ratings[endpoint];
-    summary += `${endpoint}:\n`;
-    summary += `  - Total Calls: ${calls}\n`;
-    summary += `  - Successful Calls: ${successful}\n`;
-    summary += `  - Failed Calls: ${failed}\n`;
-    summary += `  - Health Rating: ${health} (${successRate.toFixed(
-      2
-    )}% success rate)\n\n`;
-  }
-  return summary;
-};
-
 export const sendWhatsAppAlert = async (messageParams) => {
   const message = await formatErrorAlert(messageParams);
   try {
     await twilioClient.messages.create({
       body: `New Incident Alert:\n ${message}`,
-      from: "whatsapp:+14155238886",
-      to: "whatsapp:+2349059391242",
+      from: "whatsapp:<your Twilio WhatsApp number>",
+      to: "whatsapp:<your own number>",
     });
     console.log(`WhatsApp Alert sent successfully.`);
   } catch (error) {
